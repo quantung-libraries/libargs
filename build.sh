@@ -193,7 +193,7 @@ do_version() {
     fi
 
     # Validate semver
-    if ! echo "$new_ver" | grep -qP '^\d+\.\d+\.\d+$'; then
+    if ! echo "$new_ver" | grep -qE '^\d+\.\d+\.\d+$'; then
         fail "Invalid version '$new_ver' — must be X.Y.Z"
     fi
 
