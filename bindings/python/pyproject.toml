@@ -29,5 +29,5 @@ classifiers     = [
 [project.urls]
 Homepage      = "https://github.com/quantung-libraries/libargs"
 Repository    = "https://github.com/quantung-libraries/libargs"
-""Bug Tracker" = "https://github.com/quantung-libraries/libargs/issues"
+"Bug Tracker" = "https://github.com/quantung-libraries/libargs/issues"
 Changelog     = "https://github.com/quantung-libraries/libargs/releases"
