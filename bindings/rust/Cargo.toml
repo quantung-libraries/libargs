@@ -1,0 +1,30 @@
+[package]
+name        = "libargs-rs"
+version     = "1.0.0"
+edition     = "2026"
+description = "Safe Rust bindings for libargs — Unix/GNU-style argument parsing"
+license     = "MIT"
+readme      = "../../README.md"
+repository  = "https://github.com/quantung-libraries/libargs"
+homepage    = "https://github.com/quantung-libraries/libargs"
+keywords    = ["args", "argparse", "cli", "unix", "gnu"]
+categories  = ["command-line-interface", "parsing"]
+include     = [
+    "src/**/*",
+    "tests/**/*",
+    "build.rs",
+    "../../args.c",
+    "../../args_help.c",
+    "../../args.h",
+]
+
+[[bin]]
+name = "libargs-demo"
+path = "src/main.rs"
+
+[lib]
+name       = "libargs"
+crate-type = ["rlib", "staticlib"]
+
+[build-dependencies]
+# build.rs uses only std — zero extra deps

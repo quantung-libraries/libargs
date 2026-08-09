@@ -1,0 +1,31 @@
+# Build artefacts
+build/
+*.o
+*.a
+*.so
+*.so.*
+
+# Rust
+bindings/rust/target/
+
+# Python
+bindings/python/build/
+bindings/python/dist/
+bindings/python/*.so
+bindings/python/*.egg-info/
+bindings/python/__pycache__/
+bindings/python/*.pyc
+__pycache__/
+*.pyc
+*.pyo
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
