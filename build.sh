@@ -180,6 +180,23 @@ print_summary() {
     echo ""
 }
 
+# ── edition bump (Rust only: 2015 2018 2021 2024) ────────────────────────────
+do_edition() {
+    local new_ed="${1:-}"
+    if [ -z "$new_ed" ]; then
+        local cur; cur=$(grep '^edition' "$RUST_DIR/Cargo.toml" | sed 's/.*"\(.*\)".*/\1/')
+        echo -e "  Current Rust edition: ${CYAN}${cur}${RESET}"
+        ask "  New edition [2015|2018|2021|2024]: "
+        read -r new_ed
+    fi
+    case "$new_ed" in
+        2015|2018|2021|2024) ;;
+        *) fail "Invalid edition '$new_ed' — must be one of: 2015 2018 2021 2024" ;;
+    esac
+    sed -i "s/^edition     *=.*/edition     = \"${new_ed}\"/" "$RUST_DIR/Cargo.toml"
+    success "Rust edition set to ${new_ed}"
+}
+
 # ── version bump ──────────────────────────────────────────────────────────────
 do_version() {
     local new_ver="${1:-}"
@@ -193,7 +210,7 @@ do_version() {
     fi
 
     # Validate semver
-    if ! echo "$new_ver" | grep -qE '^\d+\.\d+\.\d+$'; then
+    if ! echo "$new_ver" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+$'; then
         fail "Invalid version '$new_ver' — must be X.Y.Z"
     fi
 
@@ -202,7 +219,7 @@ do_version() {
     # Cargo.toml — version + edition year
     info "Updating bindings/rust/Cargo.toml ..."
     sed -i "s/^version     *=.*/version     = \"${new_ver}\"/" "$RUST_DIR/Cargo.toml"
-    sed -i "s/^edition     *=.*/edition     = \"${year}\"/"    "$RUST_DIR/Cargo.toml"
+    # edition is NOT auto-bumped — change manually via: ./build.sh edition 2024
 
     # Regenerate Cargo.lock
     cd "$RUST_DIR" && cargo generate-lockfile 2>/dev/null; cd "$ROOT"
@@ -391,6 +408,7 @@ case "$CMD" in
     rust)         do_rust ;;
     python)       do_python ;;
     version)      do_version "${2:-}" ;;
+    edition)      do_edition "${2:-}" ;;
     init)         do_init ;;
     publish)      do_publish ;;
     all)
