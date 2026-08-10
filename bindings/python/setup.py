@@ -36,7 +36,7 @@ args_ext = Extension(
 
 setup(
     name        = "libargs",
-    version     = "1.0.0",
+    version     = "1.0.1",
     ext_modules = [args_ext],
     package_data = {"": ["args.h"]},
 )

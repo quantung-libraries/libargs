@@ -1,6 +1,6 @@
 [package]
 name        = "libargs-rs"
-version     = "1.0.0"
+version     = "1.0.1"
 edition     = "2021"
 description = "Safe Rust bindings for libargs — Unix/GNU-style argument parsing"
 license     = "MIT"
